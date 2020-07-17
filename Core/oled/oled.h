@@ -78,7 +78,7 @@ void IIC_Wait_Ack(void);
 
 void RefreshVideoMem(void);
 void OLEDFill(uint8_t fill);
-void OLEDDrawDot(uint32_t x, uint32_t y, uint32_t degree, enum DisRever rever);
+void OLEDDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisRever rever);
 void OLEDDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisRever rever);
 void OLEDDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisRever rever);
 void OLEDDrawSquare(int32_t x1, int32_t y1, int32_t x2, uint32_t y2, uint32_t fill, uint32_t degree, enum DisRever rever);

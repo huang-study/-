@@ -385,7 +385,7 @@ void OLEDFill(uint8_t fill)
 	}
 }
 // œ‘¥Êª≠µ„
-void OLEDDrawDot(uint32_t x, uint32_t y, uint32_t degree, enum DisRever rever)
+void OLEDDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisRever rever)
 {
 	uint8_t xCnt;
 	

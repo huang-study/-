@@ -77,6 +77,8 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	extern union BitDomain_64 VideoMem[128];
 	uint32_t cnt;
+	int32_t ball_x=63, ball_y=31, ball_r = 3, ball_degree = 2;
+	int32_t AveX, AveY, AveZ;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -126,101 +128,61 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		AveX = 0; AveY = 0; AveZ = 0;
+		for(cnt = 0; cnt < 10; cnt++)
+		{
+			SimulateI2C_ReadByte(i2c2, 0x32, 0x53, 6,buf);
+			AveX += (buf[1]<<8)+buf[0];
+			AveY += (buf[3]<<8)+buf[2];
+			AveZ += (buf[5]<<8)+buf[4];
+		}
+		AveX = AveX/10;
+		AveY = AveY/10;
+		AveZ = AveZ/10;
 		
-		SimulateI2C_ReadByte(i2c2, 0x32, 0x53, 6,buf);
-		
-		sprintf(ch, "x:%8d", (short)(buf[1]<<8)+buf[0]);
-		OLED_ShowString(5, 0, ch, 16);
-		sprintf(ch, "Y:%8d", (short)(buf[3]<<8)+buf[2]);
-		OLED_ShowString(5, 2, ch, 16);
-		sprintf(ch, "z:%8d", (short)(buf[5]<<8)+buf[4]);
-		OLED_ShowString(5, 4, ch, 16);
+//		sprintf(ch, "x:%8d", (short)(buf[1]<<8)+buf[0]);
+//		OLED_ShowString(5, 0, ch, 16);
+//		sprintf(ch, "Y:%8d", (short)(buf[3]<<8)+buf[2]);
+//		OLED_ShowString(5, 2, ch, 16);
+//		sprintf(ch, "z:%8d", (short)(buf[5]<<8)+buf[4]);
+//		OLED_ShowString(5, 4, ch, 16);
 //		sprintf(ch, "I1:%3d:I2:%3d", INCnt[0], INCnt[1]);
 //		OLED_ShowString(5, 6, ch, 16);
 //		
 //		OLEDFill(0);
 //		RefreshVideoMem();
-//		
-//		for(cnt = 0; cnt < 8; cnt++)
-//		{
-//			OLEDDrawLine(0, 0, 16+cnt*16, 64, 1, OLEDNORever);
-//			RefreshVideoMem();
-//			HAL_Delay(10);
-//		}
-//		for(cnt = 0; cnt < 8; cnt++)
-//		{
-//		OLEDDrawLine(127, 64, cnt*16, 0, 1, OLEDNORever);
-//			RefreshVideoMem();
-//			HAL_Delay(10);
-//		}
-//		for(cnt = 0; cnt < 7; cnt++)
-//		{
-//			OLEDDrawLine(127, 0, 127-16-cnt*16, 64, 1, OLEDNORever);
-//			RefreshVideoMem();
-//			HAL_Delay(10);
-//		}
-//		for(cnt = 0; cnt < 8; cnt++)
-//		{
-//		OLEDDrawLine(0, 63, 127-cnt*16, 0, 1, OLEDNORever);
-//			RefreshVideoMem();
-//			HAL_Delay(10);
-//		}
-//		HAL_Delay(500);
-//		
-//		OLEDFill(0);
-//		
-//		OLEDDrawCircule(64, 32, 5, 2, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawCircule(64, 32, 10, 2, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawCircule(64, 32, 15, 2, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawCircule(64, 32, 20, 2, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawCircule(64, 32, 25, 2, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawCircule(64, 32, 30, 2, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		
-//		OLEDFill(0);
-//		OLEDDrawSquareLangth(0, 0, 20, 20, 0, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(25, 0, 20, 20, 1, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(50, 0, 20, 20, 0, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(75, 0, 20, 20, 1, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(100, 0, 20, 20, 0, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(0, 25, 20, 20, 1, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(25, 25, 20, 20, 0, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(50, 25, 20, 20, 1, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(75, 25, 20, 20, 0, 1, OLEDNORever);
-//		RefreshVideoMem();
-//		HAL_Delay(500);
-//		OLEDDrawSquareLangth(100, 25, 20, 20, 1, 1, OLEDNORever);
-//		RefreshVideoMem();
-		HAL_Delay(500);
-//		
-//		HAL_Delay(1000);
+
+		OLEDFill(0);
+		OLEDDrawCircule(ball_x+63, ball_y+31, ball_r, ball_degree, OLEDNORever);
+		RefreshVideoMem();
+		
+		if(((short)(buf[1]<<8)+buf[0]) > 0)
+		{
+			if(ball_x++ > 64-ball_r-ball_degree)
+			{
+				ball_x = 64-ball_r-ball_degree;
+			}
+		}else if(((short)(buf[1]<<8)+buf[0]) < 0)
+		{
+			if(ball_x-- < -64+ball_r+ball_degree)
+			{
+				ball_x = -64+ball_r+ball_degree;
+			}
+		}
+		if((short)(buf[3]<<8)+buf[2] > 0)
+		{
+			if(ball_y-- < -32+ball_r+ball_degree)
+			{
+				ball_y = -32+ball_r+ball_degree;
+			}
+		}else if((short)(buf[3]<<8)+buf[2] < 0)
+		{
+			if(ball_y++ > 32-ball_r-ball_degree)
+			{
+				ball_y = 32-ball_r-ball_degree;
+			}
+		}
+
   /* USER CODE END 3 */
 	}
 }
