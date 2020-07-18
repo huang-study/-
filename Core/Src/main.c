@@ -77,8 +77,10 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	extern union BitDomain_64 VideoMem[128];
 	uint32_t cnt;
-	int32_t ball_x=63, ball_y=31, ball_r = 3, ball_degree = 2;
+	int32_t ball_x=63, ball_y=31, ball_r = 3, ball_degree = 4;
 	int32_t AveX, AveY, AveZ;
+	uint32_t FillCnt = 0;
+	uint32_t AddAveX[5], AddAveY[5];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -129,53 +131,60 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		AveX = 0; AveY = 0; AveZ = 0;
-		for(cnt = 0; cnt < 10; cnt++)
+		for(cnt = 0; cnt < 50; cnt++)
 		{
 			SimulateI2C_ReadByte(i2c2, 0x32, 0x53, 6,buf);
-			AveX += (buf[1]<<8)+buf[0];
-			AveY += (buf[3]<<8)+buf[2];
-			AveZ += (buf[5]<<8)+buf[4];
+			AveX += ((short)(buf[1]<<8)+buf[0]);
+			AveY += ((short)(buf[3]<<8)+buf[2]);
+			AveZ += ((short)(buf[5]<<8)+buf[4]);
 		}
-		AveX = AveX/10;
-		AveY = AveY/10;
-		AveZ = AveZ/10;
+		AveX = AveX/50;
+		AveY = AveY/50;
+		AveZ = AveZ/50;
 		
-//		sprintf(ch, "x:%8d", (short)(buf[1]<<8)+buf[0]);
-//		OLED_ShowString(5, 0, ch, 16);
-//		sprintf(ch, "Y:%8d", (short)(buf[3]<<8)+buf[2]);
-//		OLED_ShowString(5, 2, ch, 16);
-//		sprintf(ch, "z:%8d", (short)(buf[5]<<8)+buf[4]);
-//		OLED_ShowString(5, 4, ch, 16);
-//		sprintf(ch, "I1:%3d:I2:%3d", INCnt[0], INCnt[1]);
-//		OLED_ShowString(5, 6, ch, 16);
-//		
-//		OLEDFill(0);
-//		RefreshVideoMem();
+		AddAveX[FillCnt] = AveX;
+		AddAveY[FillCnt] = AveY;
+		if(5 <= FillCnt)
+		{
+			FillCnt = 0;
+		}
+		AveX = 0;
+		AveY = 0;
+		for(cnt = 0; cnt < 5; cnt++)
+		{
+			AveX += AddAveX[cnt];
+			AveY += AddAveY[cnt];
+		}
+		AveX = AveX/5;
+		AveY = AveY/5;
 
 		OLEDFill(0);
+		OLEDDrawCircule(63, 31, 10, 2, OLEDNORever);
+		OLEDDrawLine(0, 31, 127, 31, 2, OLEDRever);
+		OLEDDrawLine(63, 0, 63, 64, 2, OLEDRever);
 		OLEDDrawCircule(ball_x+63, ball_y+31, ball_r, ball_degree, OLEDNORever);
 		RefreshVideoMem();
 		
-		if(((short)(buf[1]<<8)+buf[0]) > 0)
+		if(AveX > 0)
 		{
 			if(ball_x++ > 64-ball_r-ball_degree)
 			{
 				ball_x = 64-ball_r-ball_degree;
 			}
-		}else if(((short)(buf[1]<<8)+buf[0]) < 0)
+		}else if(AveX < 0)
 		{
 			if(ball_x-- < -64+ball_r+ball_degree)
 			{
 				ball_x = -64+ball_r+ball_degree;
 			}
 		}
-		if((short)(buf[3]<<8)+buf[2] > 0)
+		if(AveY > 0)
 		{
 			if(ball_y-- < -32+ball_r+ball_degree)
 			{
 				ball_y = -32+ball_r+ball_degree;
 			}
-		}else if((short)(buf[3]<<8)+buf[2] < 0)
+		}else if(AveY < 0)
 		{
 			if(ball_y++ > 32-ball_r-ball_degree)
 			{
