@@ -175,21 +175,21 @@ int main(void)
 			if(ball_x > 64-ball_r-ball_degree)
 			{
 				ball_x = 64-ball_r-ball_degree;
-				VelocityX = 0;
+				VelocityX = VelocityX*-1;
 			}else if(ball_x < -64+ball_r+1)
 			{
 				ball_x = -64+ball_r+1;
-				VelocityX = 0;
+				VelocityX = VelocityX*-1;
 			}
 			
 			if(ball_y < -32+ball_r+1)
 			{
 				ball_y = -32+ball_r+1;
-				VelocityY = 0;
+				VelocityY = VelocityY*-1;
 			}else if(ball_y > 32-ball_r-ball_degree)
 			{
 				ball_y = 32-ball_r-ball_degree;
-				VelocityY = 0;
+				VelocityY = VelocityY*-1;
 			}
 		}
 		
