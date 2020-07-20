@@ -33,6 +33,8 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+#include "math.h"
+#include "screen.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,8 +66,12 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t DevID = 0, buf[6], cmd=XL345_OFSX;
+	int32_t AveX, AveY, AveZ;
 char ch[100];
+double AccX,AccY;
 unsigned int INCnt[2] = {0,0};
+uint32_t AccCalc;
+double VelocityX = 0, VelocityY = 0;
 /* USER CODE END 0 */
 
 /**
@@ -78,9 +84,6 @@ int main(void)
 	extern union BitDomain_64 VideoMem[128];
 	uint32_t cnt;
 	int32_t ball_x=63, ball_y=31, ball_r = 3, ball_degree = 4;
-	int32_t AveX, AveY, AveZ;
-	uint32_t FillCnt = 0;
-	uint32_t AddAveX[5], AddAveY[5];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -106,7 +109,6 @@ int main(void)
 	SimulateI2C_Init(i2c1);
 	SimulateI2C_Init(i2c2);
 	OLED_Init();			//初始化OLED  
-	OLED_Clear()  	; 
 	
 	buf[0] = 0xB;
 	SimulateI2C_WriteByte(i2c2 ,0x31, 0x53, 1,buf); //测量范围,正负16g，13位模式
@@ -141,56 +143,56 @@ int main(void)
 		AveX = AveX/50;
 		AveY = AveY/50;
 		AveZ = AveZ/50;
-		
-		AddAveX[FillCnt] = AveX;
-		AddAveY[FillCnt] = AveY;
-		if(5 <= FillCnt)
-		{
-			FillCnt = 0;
-		}
-		AveX = 0;
-		AveY = 0;
-		for(cnt = 0; cnt < 5; cnt++)
-		{
-			AveX += AddAveX[cnt];
-			AveY += AddAveY[cnt];
-		}
-		AveX = AveX/5;
-		AveY = AveY/5;
 
-		OLEDFill(0);
-		OLEDDrawCircule(63, 31, 10, 2, OLEDNORever);
-		OLEDDrawLine(0, 31, 127, 31, 2, OLEDRever);
-		OLEDDrawLine(63, 0, 63, 64, 2, OLEDRever);
-		OLEDDrawCircule(ball_x+63, ball_y+31, ball_r, ball_degree, OLEDNORever);
-		RefreshVideoMem();
-		
-		if(AveX > 0)
+		// s = a*t^2
+		if ((HAL_GetTick() - AccCalc) >= (50+(uint32_t)(uwTickFreq)))
 		{
-			if(ball_x++ > 64-ball_r-ball_degree)
+			AccCalc = HAL_GetTick();
+
+			ScreenFill(0);
+//			ScreenDrawCircule(63, 31, 10, 2, ScreenNORever);
+//			ScreenDrawLine(0, 31, 127, 31, 2, ScreenRever);
+//			ScreenDrawLine(63, 0, 63, 64, 2, ScreenRever);
+			ScreenDrawCircule(ball_x+63, ball_y+31, ball_r, ball_degree, ScreenNoRever);
+			RefreshScreen();
+			
+			if(0 == AveZ)
+			{
+				AccX = AveX * cos(atan(AveX/AveZ));
+				AccY = AveY * cos(atan(AveY/AveZ));
+			}else
+			{
+				AccX = AveX;
+				AccY = AveY;
+			}
+			
+			VelocityX += ((AccX*9.8)/256)*0.05;
+			VelocityY += ((AccY*9.8)/256)*0.05;
+			
+			ball_x += (VelocityX*500)*0.05;
+			ball_y -= (VelocityY*500)*0.05;
+			
+			if(ball_x > 64-ball_r-ball_degree)
 			{
 				ball_x = 64-ball_r-ball_degree;
-			}
-		}else if(AveX < 0)
-		{
-			if(ball_x-- < -64+ball_r+ball_degree)
+				VelocityX = 0;
+			}else if(ball_x < -64+ball_r+1)
 			{
-				ball_x = -64+ball_r+ball_degree;
+				ball_x = -64+ball_r+1;
+				VelocityX = 0;
 			}
-		}
-		if(AveY > 0)
-		{
-			if(ball_y-- < -32+ball_r+ball_degree)
+			
+			if(ball_y < -32+ball_r+1)
 			{
-				ball_y = -32+ball_r+ball_degree;
-			}
-		}else if(AveY < 0)
-		{
-			if(ball_y++ > 32-ball_r-ball_degree)
+				ball_y = -32+ball_r+1;
+				VelocityY = 0;
+			}else if(ball_y > 32-ball_r-ball_degree)
 			{
 				ball_y = 32-ball_r-ball_degree;
+				VelocityY = 0;
 			}
 		}
+		
 
   /* USER CODE END 3 */
 	}

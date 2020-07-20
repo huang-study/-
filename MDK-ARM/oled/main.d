@@ -36,3 +36,5 @@ oled\main.o: ../Core/Inc/bit_domain.h
 oled\main.o: ..\Core\ADXL345\ADXL345.h
 oled\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 oled\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+oled\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+oled\main.o: ..\Core\screen\screen.h

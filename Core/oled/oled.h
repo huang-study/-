@@ -45,12 +45,6 @@
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
 
-enum DisRever
-{
-	OLEDNORever=0,
-	OLEDRever,
-	OLEDAUTORever
-};
 
 //OLED控制用函数
 void OLED_WR_Byte(unsigned dat,unsigned cmd);  
@@ -76,13 +70,6 @@ void Write_IIC_Byte(unsigned char IIC_Byte);
 
 void IIC_Wait_Ack(void);
 
-void RefreshVideoMem(void);
-void OLEDFill(uint8_t fill);
-void OLEDDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisRever rever);
-void OLEDDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisRever rever);
-void OLEDDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisRever rever);
-void OLEDDrawSquare(int32_t x1, int32_t y1, int32_t x2, uint32_t y2, uint32_t fill, uint32_t degree, enum DisRever rever);
-void OLEDDrawSquareLangth(int32_t x1, int32_t y1, int32_t length, uint32_t width, uint32_t fill, uint32_t degree, enum DisRever rever);
 #endif  
 	 
 
