@@ -72,6 +72,7 @@ double AccX,AccY;
 unsigned int INCnt[2] = {0,0};
 uint32_t AccCalc;
 double VelocityX = 0, VelocityY = 0;
+double ElasticAttritionRato = 0.60;
 /* USER CODE END 0 */
 
 /**
@@ -175,21 +176,21 @@ int main(void)
 			if(ball_x > 64-ball_r-ball_degree)
 			{
 				ball_x = 64-ball_r-ball_degree;
-				VelocityX = VelocityX*-1;
+				VelocityX = VelocityX*ElasticAttritionRato*-1;
 			}else if(ball_x < -64+ball_r+1)
 			{
 				ball_x = -64+ball_r+1;
-				VelocityX = VelocityX*-1;
+				VelocityX = VelocityX*ElasticAttritionRato*-1;
 			}
 			
 			if(ball_y < -32+ball_r+1)
 			{
 				ball_y = -32+ball_r+1;
-				VelocityY = VelocityY*-1;
+				VelocityY = VelocityY*ElasticAttritionRato*-1;
 			}else if(ball_y > 32-ball_r-ball_degree)
 			{
 				ball_y = 32-ball_r-ball_degree;
-				VelocityY = VelocityY*-1;
+				VelocityY = VelocityY*ElasticAttritionRato*-1;
 			}
 		}
 		
