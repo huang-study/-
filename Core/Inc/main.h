@@ -58,10 +58,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SENSOR_INT2_Pin GPIO_PIN_1
+#define i2c2_SCL_Pin GPIO_PIN_0
+#define i2c2_SCL_GPIO_Port GPIOB
+#define i2c2_SDA_Pin GPIO_PIN_1
+#define i2c2_SDA_GPIO_Port GPIOB
+#define i2c1_SCL_Pin GPIO_PIN_10
+#define i2c1_SCL_GPIO_Port GPIOB
+#define i2c1_SDA_Pin GPIO_PIN_11
+#define i2c1_SDA_GPIO_Port GPIOB
+#define SENSOR_INT2_Pin GPIO_PIN_12
 #define SENSOR_INT2_GPIO_Port GPIOB
-#define SENSOR_INT2_EXTI_IRQn EXTI1_IRQn
-#define SENSOR_INT1_Pin GPIO_PIN_10
+#define SENSOR_INT2_EXTI_IRQn EXTI15_10_IRQn
+#define SENSOR_INT1_Pin GPIO_PIN_15
 #define SENSOR_INT1_GPIO_Port GPIOB
 #define SENSOR_INT1_EXTI_IRQn EXTI15_10_IRQn
 /* USER CODE BEGIN Private defines */

@@ -72,7 +72,7 @@ double AccX,AccY;
 unsigned int INCnt[2] = {0,0};
 uint32_t AccCalc;
 double VelocityX = 0, VelocityY = 0;
-double ElasticAttritionRato = 0.60;
+double ElasticAttritionRato = 0.90;
 /* USER CODE END 0 */
 
 /**
@@ -167,8 +167,8 @@ int main(void)
 				AccY = AveY;
 			}
 			
-			VelocityX += ((AccX*9.8)/256)*0.05;
-			VelocityY += ((AccY*9.8)/256)*0.05;
+			VelocityX -= ((AccX*9.8)/256)*0.05;
+			VelocityY -= ((AccY*9.8)/256)*0.05;
 			
 			ball_x += (VelocityX*500)*0.05;
 			ball_y -= (VelocityY*500)*0.05;
@@ -193,8 +193,6 @@ int main(void)
 				VelocityY = VelocityY*ElasticAttritionRato*-1;
 			}
 		}
-		
-
   /* USER CODE END 3 */
 	}
 }

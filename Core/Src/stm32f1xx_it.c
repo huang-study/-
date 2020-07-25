@@ -198,20 +198,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles EXTI line1 interrupt.
-  */
-void EXTI1_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI1_IRQn 0 */
-
-  /* USER CODE END EXTI1_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-  /* USER CODE BEGIN EXTI1_IRQn 1 */
-	INCnt[1]++;
-  /* USER CODE END EXTI1_IRQn 1 */
-}
-
-/**
   * @brief This function handles TIM4 global interrupt.
   */
 void TIM4_IRQHandler(void)
@@ -233,7 +219,8 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
 
   /* USER CODE END EXTI15_10_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_12);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */
 	INCnt[0]++;
   /* USER CODE END EXTI15_10_IRQn 1 */

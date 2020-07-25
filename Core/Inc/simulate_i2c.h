@@ -18,14 +18,14 @@
  ********************************************************************************
  */
  
-#define i2c1_SCL_Pin GPIO_PIN_0
-#define i2c1_SCL_GPIO_Port GPIOA
-#define i2c1_SDA_Pin GPIO_PIN_1
-#define i2c1_SDA_GPIO_Port GPIOA
-#define i2c2_SCL_Pin GPIO_PIN_6
-#define i2c2_SCL_GPIO_Port GPIOA
-#define i2c2_SDA_Pin GPIO_PIN_7
-#define i2c2_SDA_GPIO_Port GPIOA
+#define i2c2_SCL_Pin GPIO_PIN_0
+#define i2c2_SCL_GPIO_Port GPIOB
+#define i2c2_SDA_Pin GPIO_PIN_1
+#define i2c2_SDA_GPIO_Port GPIOB
+#define i2c1_SCL_Pin GPIO_PIN_10
+#define i2c1_SCL_GPIO_Port GPIOB
+#define i2c1_SDA_Pin GPIO_PIN_11
+#define i2c1_SDA_GPIO_Port GPIOB
  
 #define I2C_DELAY_SCL_US 0
 #define I2C_DELAY_US     0

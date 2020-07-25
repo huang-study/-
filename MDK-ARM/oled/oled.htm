@@ -3,7 +3,7 @@
 <title>Static Call Graph - [oled\oled.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image oled\oled.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Jul 20 15:12:51 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Jul 25 23:54:07 2020
 <BR><P>
 <H3>Maximum Stack Usage =        272 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -31,7 +31,7 @@ Function Pointers
  <LI><a href="#[7]">DebugMon_Handler</a> from stm32f1xx_it.o(i.DebugMon_Handler) referenced from startup_stm32f103xb.o(RESET)
  <LI><a href="#[10]">EXTI0_IRQHandler</a> from startup_stm32f103xb.o(.text) referenced from startup_stm32f103xb.o(RESET)
  <LI><a href="#[32]">EXTI15_10_IRQHandler</a> from stm32f1xx_it.o(i.EXTI15_10_IRQHandler) referenced from startup_stm32f103xb.o(RESET)
- <LI><a href="#[11]">EXTI1_IRQHandler</a> from stm32f1xx_it.o(i.EXTI1_IRQHandler) referenced from startup_stm32f103xb.o(RESET)
+ <LI><a href="#[11]">EXTI1_IRQHandler</a> from startup_stm32f103xb.o(.text) referenced from startup_stm32f103xb.o(RESET)
  <LI><a href="#[12]">EXTI2_IRQHandler</a> from startup_stm32f103xb.o(.text) referenced from startup_stm32f103xb.o(RESET)
  <LI><a href="#[13]">EXTI3_IRQHandler</a> from startup_stm32f103xb.o(.text) referenced from startup_stm32f103xb.o(RESET)
  <LI><a href="#[14]">EXTI4_IRQHandler</a> from startup_stm32f103xb.o(.text) referenced from startup_stm32f103xb.o(RESET)
@@ -139,6 +139,9 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
 <P><STRONG><a name="[10]"></a>EXTI0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f103xb.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
+</UL>
+<P><STRONG><a name="[11]"></a>EXTI1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f103xb.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
 <P><STRONG><a name="[12]"></a>EXTI2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_stm32f103xb.o(.text))
@@ -267,12 +270,12 @@ Global Symbols
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 
 <P><STRONG><a name="[42]"></a>__aeabi_dsub</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, dadd.o(.text))
@@ -293,6 +296,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScreenDrawCircule
+<LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
@@ -418,15 +422,8 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.DebugMon_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[32]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, stm32f1xx_it.o(i.EXTI15_10_IRQHandler))
+<P><STRONG><a name="[32]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, stm32f1xx_it.o(i.EXTI15_10_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = EXTI15_10_IRQHandler &rArr; HAL_GPIO_EXTI_IRQHandler
-</UL>
-<BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_IRQHandler
-</UL>
-<BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
-</UL>
-<P><STRONG><a name="[11]"></a>EXTI1_IRQHandler</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, stm32f1xx_it.o(i.EXTI1_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = EXTI1_IRQHandler &rArr; HAL_GPIO_EXTI_IRQHandler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_IRQHandler
 </UL>
@@ -454,17 +451,16 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Callback
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI1_IRQHandler
-<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
 </UL>
 
 <P><STRONG><a name="[71]"></a>HAL_GPIO_Init</STRONG> (Thumb, 766 bytes, Stack size 36 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
+<BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchIn
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Init
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
 <P><STRONG><a name="[8a]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_ReadPin))
@@ -473,15 +469,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[6d]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin))
-<BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WaitAck
+<BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WaitAck
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Stop
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Start
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_SendByte
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_RecvByte
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_NAck
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Ack
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Init
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Ack
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_IIC_Byte
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Wait_Ack
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Stop
@@ -658,7 +654,7 @@ Global Symbols
 <P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.HardFault_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[6c]"></a>IIC_Start</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, oled.o(i.IIC_Start))
+<P><STRONG><a name="[6c]"></a>IIC_Start</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, oled.o(i.IIC_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = IIC_Start
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -667,7 +663,7 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_IIC_Command
 </UL>
 
-<P><STRONG><a name="[6e]"></a>IIC_Stop</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, oled.o(i.IIC_Stop))
+<P><STRONG><a name="[6e]"></a>IIC_Stop</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, oled.o(i.IIC_Stop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = IIC_Stop
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -676,7 +672,7 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_IIC_Command
 </UL>
 
-<P><STRONG><a name="[6f]"></a>IIC_Wait_Ack</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, oled.o(i.IIC_Wait_Ack))
+<P><STRONG><a name="[6f]"></a>IIC_Wait_Ack</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, oled.o(i.IIC_Wait_Ack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = IIC_Wait_Ack
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -685,7 +681,7 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_IIC_Command
 </UL>
 
-<P><STRONG><a name="[70]"></a>MX_GPIO_Init</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, gpio.o(i.MX_GPIO_Init))
+<P><STRONG><a name="[70]"></a>MX_GPIO_Init</STRONG> (Thumb, 182 bytes, Stack size 24 bytes, gpio.o(i.MX_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = MX_GPIO_Init &rArr; HAL_NVIC_SetPriority &rArr; __NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority
@@ -760,8 +756,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = ScreenDrawCircule &rArr; __aeabi_drsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
+<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScreenDrawDot
 </UL>
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -790,14 +786,14 @@ Global Symbols
 <P><STRONG><a name="[7e]"></a>SimulateI2C_Ack</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, simulate_i2c.o(i.SimulateI2C_Ack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = SimulateI2C_Ack &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_RecvByte
 </UL>
 
-<P><STRONG><a name="[81]"></a>SimulateI2C_Init</STRONG> (Thumb, 102 bytes, Stack size 40 bytes, simulate_i2c.o(i.SimulateI2C_Init))
+<P><STRONG><a name="[81]"></a>SimulateI2C_Init</STRONG> (Thumb, 106 bytes, Stack size 40 bytes, simulate_i2c.o(i.SimulateI2C_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = SimulateI2C_Init &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -809,9 +805,9 @@ Global Symbols
 <P><STRONG><a name="[82]"></a>SimulateI2C_NAck</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, simulate_i2c.o(i.SimulateI2C_NAck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = SimulateI2C_NAck &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_RecvByte
 </UL>
@@ -831,12 +827,12 @@ Global Symbols
 <P><STRONG><a name="[87]"></a>SimulateI2C_RecvByte</STRONG> (Thumb, 108 bytes, Stack size 32 bytes, simulate_i2c.o(i.SimulateI2C_RecvByte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = SimulateI2C_RecvByte &rArr; SimulateI2C_NAck &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchIn
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_NAck
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Ack
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
 </UL>
@@ -844,9 +840,9 @@ Global Symbols
 <P><STRONG><a name="[85]"></a>SimulateI2C_SendByte</STRONG> (Thumb, 102 bytes, Stack size 32 bytes, simulate_i2c.o(i.SimulateI2C_SendByte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = SimulateI2C_SendByte &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
@@ -855,9 +851,9 @@ Global Symbols
 <P><STRONG><a name="[84]"></a>SimulateI2C_Start</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, simulate_i2c.o(i.SimulateI2C_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = SimulateI2C_Start &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
@@ -866,23 +862,23 @@ Global Symbols
 <P><STRONG><a name="[88]"></a>SimulateI2C_Stop</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, simulate_i2c.o(i.SimulateI2C_Stop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = SimulateI2C_Stop &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchOut
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WaitAck
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
+<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WaitAck
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
 </UL>
 
 <P><STRONG><a name="[86]"></a>SimulateI2C_WaitAck</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, simulate_i2c.o(i.SimulateI2C_WaitAck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = SimulateI2C_WaitAck &rArr; SimulateI2C_Stop &rArr; switchOut &rArr; HAL_GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switchIn
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Stop
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_nus
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
@@ -943,7 +939,7 @@ Global Symbols
 <P><STRONG><a name="[5]"></a>UsageFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.UsageFault_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[8f]"></a>Write_IIC_Byte</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, oled.o(i.Write_IIC_Byte))
+<P><STRONG><a name="[8f]"></a>Write_IIC_Byte</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, oled.o(i.Write_IIC_Byte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Write_IIC_Byte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -984,12 +980,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
 </UL>
@@ -998,11 +994,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = __kernel_cos &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
 </UL>
@@ -1022,13 +1018,13 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = __kernel_sin &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
 </UL>
@@ -1073,6 +1069,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = atan &rArr; __kernel_poly &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
@@ -1081,7 +1078,6 @@ Global Symbols
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1104,13 +1100,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Init
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScreenFill
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ScreenDrawCircule
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RefreshScreen
@@ -1120,6 +1114,9 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_ReadByte
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Init
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cos
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
@@ -1150,14 +1147,14 @@ Global Symbols
 Local Symbols
 </H3>
 <P><STRONG><a name="[80]"></a>delay_nus</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, simulate_i2c.o(i.delay_nus))
-<BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WaitAck
+<BR><BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WaitAck
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Stop
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Start
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_SendByte
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_RecvByte
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_NAck
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_Ack
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimulateI2C_WriteByte
 </UL>
 
 <P><STRONG><a name="[62]"></a>TIM_ITRx_SetConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f1xx_hal_tim.o(i.TIM_ITRx_SetConfig))
