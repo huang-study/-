@@ -29,35 +29,63 @@ void ScreenFill(uint8_t fill)
 		}
 	}
 }
-// 显存画像素，所有绘画函数基于此函数操作
-void ScreenDrawPix(int32_t x, int32_t y, enum DisReverse rever)
+// 设置像素显示值
+void ScreenSetPix(int32_t x, int32_t y, enum ScreenPixStatus status)
 {
+	if(PixERR == status)
+		return;
 	if((x < 0) || (y < 0) || (x > (_SCREEN_PIXEL_X-1)) || (y > (_SCREEN_PIXEL_Y-1)))
 		return;
 	
-	switch(rever)
+	switch(status)
 	{
-		case ScreenNoReverse:
+		case PixON:
 			VideoBuf[x][y/8] |= 0x01<<(y%8);
 			return;
-		case ScreenReverse:
+		case PixOFF:
 			VideoBuf[x][y/8] &= (~(0x01<<(y%8)));
 			return;
-		case ScreenAutoReverse:
-			if((VideoBuf[x][y/8]&(0x01<<(y%8)))!=0)
-			{
-				ScreenDrawPix(x, y, ScreenReverse);
-			}else
-			{
-				ScreenDrawPix(x, y, ScreenNoReverse);
-			}
-			return;
-		default:
+		case PixERR:
 			return;
 	}
 }
+// 获取像素状态
+enum ScreenPixStatus ScreenGetPix(int32_t x, int32_t y)
+{
+	if((x < 0) || (y < 0) || (x > (_SCREEN_PIXEL_X-1)) || (y > (_SCREEN_PIXEL_Y-1)))
+		return PixERR;
+	
+	return (VideoBuf[x][y/8]&(~(0x01<<(y%8))))==0?PixOFF:PixON;
+}
+// 绘制像素点，不反显，反显，自动反显三种操作方式
+void ScreenDrawPix(int32_t x, int32_t y, enum DisReverse reverse)
+{
+	switch((int)reverse)
+	{
+		case ScreenNoReverse:
+			ScreenSetPix(x, y, PixON);
+			return;
+		case ScreenReverse:
+			ScreenSetPix(x, y, PixOFF);
+			return;
+		case ScreenAutoReverse:
+			switch((int)ScreenGetPix(x, y))
+			{
+				case PixON:
+					ScreenSetPix(x, y, PixOFF);
+					return;
+				case PixOFF:
+					ScreenSetPix(x, y, PixON);
+					return;
+				case PixERR:
+					return;
+			}
+			return;
+		}
+}
+// 画图部分
 // 显存画点
-void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisReverse rever)
+void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisReverse reverse)
 {
 	int32_t xCnt, yCnt;
 	
@@ -77,7 +105,7 @@ void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisReverse rever)
 	{
 		for(yCnt = 0; yCnt < (_SCREEN_PIXEL_Y>(y+degree)?degree:(_SCREEN_PIXEL_Y-y)); yCnt++)
 		{
-			ScreenDrawPix(x+xCnt, y+yCnt, rever);
+			ScreenDrawPix(x+xCnt, y+yCnt, reverse);
 		}
 	}
 }
@@ -299,4 +327,109 @@ void ScreenDrawSquare(int32_t x1, int32_t y1, int32_t x2, int32_t y2, enum Graph
 void ScreenDrawSquareLangth(int32_t x1, int32_t y1, int32_t length, uint32_t width, enum GraphFill fill, uint32_t degree, enum DisReverse reverse)
 {
 	ScreenDrawSquare(x1, y1, x1+length-1, y1+width-1, fill, degree, reverse);
+}
+/********************************************
+// fill_Picture
+********************************************/
+void ScreenDrawBMP(unsigned char x0, unsigned char y0,unsigned char x1, unsigned char y1,struct BMPPicture *BMP, enum DisReverse reverse)
+{ 	
+	int temp = 0;
+	int disL, disH;
+	if(BMP == NULL)
+		return;
+	
+	if(x1 < x0) 
+	{
+		temp = x1;
+		x1 = x0;
+		x0 = temp;
+	}
+	if(y1 < y0) 
+	{
+		temp = y1;
+		y1 = y0;
+		y0 = temp;
+	}
+	temp = 0;
+	disH = ((y1-y0)>BMP->hight?(y1-y0):BMP->hight);
+	disL = ((y1-y0)>BMP->length?(y1-y0):BMP->length);
+	for(int yCnt = 0; yCnt < disH/8; yCnt++)
+	{
+		for(int xCnt = 0; xCnt < disL; xCnt++, temp++)
+		{
+			for(int lineCnt = 0; lineCnt < 8; lineCnt++)
+			{
+				ScreenDrawPix(xCnt, yCnt+lineCnt, \
+					(BMP->BMPData[yCnt*disL+xCnt]&(0x01<<lineCnt))==(reverse==ScreenReverse?1:0)?ScreenReverse:ScreenNoReverse);
+			}
+		}
+	}
+
+} 
+// 写字
+void ScreenShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
+{      	
+	unsigned char c=0,i=0;	
+		c=chr-' ';//得到偏移后的值			
+		if(x>Max_Column-1){x=0;y=y+2;}
+		if(Char_Size ==16)
+			{
+			OLED_Set_Pos(x,y);	
+			for(i=0;i<8;i++)
+			OLED_WR_Byte(F8X16[c*16+i],OLED_DATA);
+			OLED_Set_Pos(x,y+1);
+			for(i=0;i<8;i++)
+			OLED_WR_Byte(F8X16[c*16+i+8],OLED_DATA);
+			}
+			else {	
+				OLED_Set_Pos(x,y);
+				for(i=0;i<6;i++)
+				OLED_WR_Byte(F6x8[c][i],OLED_DATA);
+				
+			}
+} 		  
+void OLED_ShowNum(uint8_t x,uint8_t y,uint32_t num,uint8_t len,uint8_t size2)
+{         	
+	uint8_t t,temp;
+	uint8_t enshow=0;						   
+	for(t=0;t<len;t++)
+	{
+		temp=(num/oled_pow(10,len-t-1))%10;
+		if(enshow==0&&t<(len-1))
+		{
+			if(temp==0)
+			{
+				OLED_ShowChar(x+(size2/2)*t,y,' ',size2);
+				continue;
+			}else enshow=1; 
+		 	 
+		}
+	 	OLED_ShowChar(x+(size2/2)*t,y,temp+'0',size2); 
+	}
+} 
+void OLED_ShowString(uint8_t x,uint8_t y,uint8_t *chr,uint8_t Char_Size)
+{
+	unsigned char j=0;
+	while (chr[j]!='\0')
+	{		OLED_ShowChar(x,y,chr[j],Char_Size);
+			x+=8;
+		if(x>120){x=0;y+=2;}
+			j++;
+	}
+}
+void OLED_ShowCHinese(uint8_t x,uint8_t y,uint8_t no)
+{      			    
+	uint8_t t,adder=0;
+	OLED_Set_Pos(x,y);	
+    for(t=0;t<16;t++)
+		{
+				OLED_WR_Byte(Hzk[2*no][t],OLED_DATA);
+				adder+=1;
+     }	
+		OLED_Set_Pos(x,y+1);	
+    for(t=0;t<16;t++)
+			{	
+				OLED_WR_Byte(Hzk[2*no+1][t],OLED_DATA);
+				adder+=1;
+      }					
 }

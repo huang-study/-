@@ -12,6 +12,13 @@
 #define _SCREEN_PIXEL_X 128 // 屏幕水平像素数，移植需修改
 #define _SCREEN_PIXEL_Y 64 // 屏幕垂直像素数，移植需修改
 
+enum ScreenPixStatus
+{
+	PixERR=0,
+	PixON,
+	PixOFF
+};
+
 enum DisReverse
 {
 	ScreenNoReverse=0, // 不反显（显示为点亮，否则为不点亮）
@@ -24,9 +31,21 @@ enum GraphFill
 	NoFill
 };
 
+struct BMPPicture
+{ // 位图扫描顺序为列行式扫描，左上角为第一行第一列的第0个数据, 数据字节对齐
+	int length;
+	int hight;
+	unsigned char *BMPData;
+};
+
 void RefreshScreen(void); // 需要自己实现
+
 void ScreenFill(uint8_t fill);
-void ScreenDrawPix(int32_t x, int32_t y, enum DisReverse rever);
+
+void ScreenSetPix(int32_t x, int32_t y, enum ScreenPixStatus status);
+enum ScreenPixStatus ScreenGetPix(int32_t x, int32_t y);
+void ScreenDrawPix(int32_t x, int32_t y, enum DisReverse reverse);
+
 void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisReverse rever);
 void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisReverse rever);
 void ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisReverse rever);
