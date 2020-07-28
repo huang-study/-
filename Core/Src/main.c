@@ -124,6 +124,8 @@ int main(void)
 	buf[0] = 0x05;
 	SimulateI2C_WriteByte(i2c2 ,0x20, 0x53, 1,buf); //Z 偏移量 根据测试传感器的状态写入pdf29页
 	
+		ScreenFill(0);
+		RefreshScreen();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -133,6 +135,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
 		AveX = 0; AveY = 0; AveZ = 0;
 		for(cnt = 0; cnt < 50; cnt++)
 		{
@@ -154,7 +157,7 @@ int main(void)
 //			ScreenDrawCircule(63, 31, 10, 2, ScreenNORever);
 //			ScreenDrawLine(0, 31, 127, 31, 2, ScreenRever);
 //			ScreenDrawLine(63, 0, 63, 64, 2, ScreenRever);
-			ScreenDrawCircule(ball_x+63, ball_y+31, ball_r, ball_degree, ScreenNoRever);
+			ScreenDrawCircule(ball_x+63, ball_y+31, ball_r, ball_degree, ScreenNoReverse);
 			RefreshScreen();
 			
 			if(0 == AveZ)

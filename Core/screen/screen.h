@@ -12,19 +12,25 @@
 #define _SCREEN_PIXEL_X 128 // 屏幕水平像素数，移植需修改
 #define _SCREEN_PIXEL_Y 64 // 屏幕垂直像素数，移植需修改
 
-enum DisRever
+enum DisReverse
 {
-	ScreenNoRever=0, // 不反显（显示为点亮，否则为不点亮）
-	ScreenRever, // 反显
+	ScreenNoReverse=0, // 不反显（显示为点亮，否则为不点亮）
+	ScreenReverse, // 反显
+	ScreenAutoReverse // 自动反显，只能在基于drow pix的函数，不能越级使用，否则会与图像自身反显
+};
+enum GraphFill
+{
+	Fill,
+	NoFill
 };
 
 void RefreshScreen(void); // 需要自己实现
 void ScreenFill(uint8_t fill);
-void ScreenDrawPix(int32_t x, int32_t y, enum DisRever rever);
-void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisRever rever);
-void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisRever rever);
-void ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisRever rever);
-void ScreenDrawSquare(int32_t x1, int32_t y1, int32_t x2, uint32_t y2, uint32_t fill, uint32_t degree, enum DisRever rever);
-void ScreenDrawSquareLangth(int32_t x1, int32_t y1, int32_t length, uint32_t width, uint32_t fill, uint32_t degree, enum DisRever rever);
+void ScreenDrawPix(int32_t x, int32_t y, enum DisReverse rever);
+void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisReverse rever);
+void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisReverse rever);
+void ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisReverse rever);
+void ScreenDrawSquare(int32_t x1, int32_t y1, int32_t x2, int32_t y2, enum GraphFill fill, uint32_t degree, enum DisReverse rever);
+void ScreenDrawSquareLangth(int32_t x1, int32_t y1, int32_t length, uint32_t width, enum GraphFill fill, uint32_t degree, enum DisReverse rever);
 
 #endif /* __SCREEN_H */

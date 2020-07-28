@@ -5,8 +5,7 @@ uint8_t VideoBuf[_SCREEN_PIXEL_X][_SCREEN_PIXEL_Y];
 
 /***********功能描述：刷新显存到屏幕*****************/
 void RefreshScreen(void)
-{ //.完善刷新函数，测试显示（走点）
-
+{
 	unsigned char x,y;
 	
 	for(y=0;y<8;y++)
@@ -30,26 +29,35 @@ void ScreenFill(uint8_t fill)
 		}
 	}
 }
-// 显存画像素
-void ScreenDrawPix(int32_t x, int32_t y, enum DisRever rever)
+// 显存画像素，所有绘画函数基于此函数操作
+void ScreenDrawPix(int32_t x, int32_t y, enum DisReverse rever)
 {
 	if((x < 0) || (y < 0) || (x > (_SCREEN_PIXEL_X-1)) || (y > (_SCREEN_PIXEL_Y-1)))
 		return;
 	
 	switch(rever)
 	{
-		case ScreenNoRever:
+		case ScreenNoReverse:
 			VideoBuf[x][y/8] |= 0x01<<(y%8);
 			return;
-		case ScreenRever:
+		case ScreenReverse:
 			VideoBuf[x][y/8] &= (~(0x01<<(y%8)));
+			return;
+		case ScreenAutoReverse:
+			if((VideoBuf[x][y/8]&(0x01<<(y%8)))!=0)
+			{
+				ScreenDrawPix(x, y, ScreenReverse);
+			}else
+			{
+				ScreenDrawPix(x, y, ScreenNoReverse);
+			}
 			return;
 		default:
 			return;
 	}
 }
 // 显存画点
-void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisRever rever)
+void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisReverse rever)
 {
 	int32_t xCnt, yCnt;
 	
@@ -65,20 +73,21 @@ void ScreenDrawDot(int32_t x, int32_t y, uint32_t degree, enum DisRever rever)
 		y = _SCREEN_PIXEL_Y-1;
 	}
 	
-	for(xCnt = 0; xCnt <= (_SCREEN_PIXEL_X>(x+degree)?degree:(_SCREEN_PIXEL_X-x)); xCnt++)
+	for(xCnt = 0; xCnt < (_SCREEN_PIXEL_X>(x+degree)?degree:(_SCREEN_PIXEL_X-x)); xCnt++)
 	{
-		for(yCnt = 0; yCnt <= (_SCREEN_PIXEL_Y>(y+degree)?degree:(_SCREEN_PIXEL_Y-y)); yCnt++)
+		for(yCnt = 0; yCnt < (_SCREEN_PIXEL_Y>(y+degree)?degree:(_SCREEN_PIXEL_Y-y)); yCnt++)
 		{
 			ScreenDrawPix(x+xCnt, y+yCnt, rever);
 		}
 	}
 }
-void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisRever rever)
+// 画线，暂不能使用线粗，只能用单点，需要修改
+void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t degree, enum DisReverse reverse)
 {  // https://blog.csdn.net/yuanwuwei/article/details/70182793 中点画线
 	int dx,dy,e;
 	dx=x2-x1; 
 	dy=y2-y1;
-
+	
 	if(dx>=0)
 	{
 		if(dy >= 0) // dy>=0
@@ -88,7 +97,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 				e=dy-dx/2;
 				while(x1<=x2)
 				{
-					ScreenDrawDot(x1,y1,degree, rever);
+					ScreenDrawPix(x1,y1, reverse);
 					if(e>0){y1+=1;e-=dx;}
 					x1+=1;
 					e+=dy;
@@ -98,7 +107,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 				e=dx-dy/2;
 				while(y1<=y2)
 				{
-					ScreenDrawDot(x1,y1,degree, rever);
+					ScreenDrawPix(x1,y1, reverse);
 					if(e>0){x1+=1;e-=dy;}   
 					y1+=1;
 					e+=dx;
@@ -112,7 +121,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 				e=dy-dx/2;
 				while(x1<=x2)
 				{
-					ScreenDrawDot(x1,y1,degree, rever);
+					ScreenDrawPix(x1,y1, reverse);
 					if(e>0){y1-=1;e-=dx;}   
 					x1+=1;
 					e+=dy;
@@ -122,7 +131,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 				e=dx-dy/2;
 				while(y1>=y2)
 				{
-					ScreenDrawDot(x1,y1,degree, rever);
+					ScreenDrawPix(x1,y1, reverse);
 					if(e>0){x1+=1;e-=dy;}   
 					y1-=1;
 					e+=dx;
@@ -139,7 +148,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 			e=dy-dx/2;
 			while(x1>=x2)
 			{
-				ScreenDrawDot(x1,y1,degree, rever);
+				ScreenDrawPix(x1,y1, reverse);
 				if(e>0)
 				{
 					y1+=1;
@@ -153,7 +162,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 			e=dx-dy/2;
 			while(y1<=y2)
 			{
-				ScreenDrawDot(x1,y1,degree, rever);
+				ScreenDrawPix(x1,y1, reverse);
 				if(e>0)
 				{
 					x1-=1;
@@ -171,7 +180,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 				e=dy-dx/2;
 				while(x1>=x2)
 				{
-					ScreenDrawDot(x1,y1,degree, rever);
+					ScreenDrawPix(x1,y1, reverse);
 					if(e>0)
 					{
 						y1-=1;
@@ -185,7 +194,7 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 				e=dx-dy/2;
 				while(y1>=y2)
 				{
-					ScreenDrawDot(x1,y1,degree, rever);
+					ScreenDrawPix(x1,y1, reverse);
 					if(e>0)
 					{
 						x1-=1;
@@ -198,7 +207,8 @@ void ScreenDrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint32_t deg
 		}   
 	}
 }
-void _ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisRever rever)
+// 画圆，暂不能使用线粗，只能用单点，需要修改
+void _ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum DisReverse reverse)
 { // https://blog.csdn.net/p1126500468/article/details/50428613
 
 	int a, b, num;
@@ -206,15 +216,15 @@ void _ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum D
 	b = r;
 	while(2 * b * b >= r * r)          // 1/8圆即可
 	{
-			ScreenDrawDot(x + a, y - b, degree, rever); // 0~1
-			ScreenDrawDot(x - a, y - b, degree, rever); // 0~7
-			ScreenDrawDot(x - a, y + b, degree, rever); // 4~5
-			ScreenDrawDot(x + a, y + b, degree, rever); // 4~3
+			ScreenDrawPix(x + a, y - b, reverse); // 0~1
+			ScreenDrawPix(x - a, y - b, reverse); // 0~7
+			ScreenDrawPix(x - a, y + b, reverse); // 4~5
+			ScreenDrawPix(x + a, y + b, reverse); // 4~3
 															
-			ScreenDrawDot(x + b, y + a, degree, rever); // 2~3
-			ScreenDrawDot(x + b, y - a, degree, rever); // 2~1
-			ScreenDrawDot(x - b, y - a, degree, rever); // 6~7
-			ScreenDrawDot(x - b, y + a, degree, rever); // 6~5
+			ScreenDrawPix(x + b, y + a, reverse); // 2~3
+			ScreenDrawPix(x + b, y - a, reverse); // 2~1
+			ScreenDrawPix(x - b, y - a, reverse); // 6~7
+			ScreenDrawPix(x - b, y + a, reverse); // 6~5
 			
 			a++;
 			num = (a * a + b * b) - r*r;
@@ -225,7 +235,8 @@ void _ScreenDrawCircule(int32_t x, int32_t y, int32_t r, uint32_t degree, enum D
 			}
 		}
 }
-void ScreenDrawCircule(int32_t x1, int32_t y1, int32_t r, uint32_t degree, enum DisRever rever)
+// 画圆，暂不能使用线粗，只能用单点，需要修改
+void ScreenDrawCircule(int32_t x1, int32_t y1, int32_t r, uint32_t degree, enum DisReverse reverse)
 { // https://www.cnblogs.com/iamfatotaku/p/12497354.html
 
 	int d0, x = 0, y = r;//d0是判别式的值
@@ -236,51 +247,56 @@ void ScreenDrawCircule(int32_t x1, int32_t y1, int32_t r, uint32_t degree, enum 
 			d0 = d0 + 2 * (x - y) + 5;            //d0一定要先比x,y更新
 			x += 1;                //因为d0表达式中的x,y是上一个点
 			y -= 1;
-			ScreenDrawDot(x + x1, y + y1, degree, rever);         //(x,y)
-			ScreenDrawDot(-x + x1, y + y1, degree, rever);        //(-x,y)
-			ScreenDrawDot(y + x1, x + y1, degree, rever);         //(y,x)
-			ScreenDrawDot(-y + x1, x + y1, degree, rever);        //(-y,x)
-			ScreenDrawDot(x + x1, -y + y1, degree, rever);        //(x,-y)
-			ScreenDrawDot(-x + x1, -y + y1, degree, rever);       //(-x,-y)
-			ScreenDrawDot(y + x1, -x + y1, degree, rever);        //(y,-y)
-			ScreenDrawDot(-y + x1, -x + y1, degree, rever);       //(-y,-x)
+			ScreenDrawPix(x + x1, y + y1, reverse);         //(x,y)
+			ScreenDrawPix(-x + x1, y + y1, reverse);        //(-x,y)
+			ScreenDrawPix(y + x1, x + y1, reverse);         //(y,x)
+			ScreenDrawPix(-y + x1, x + y1, reverse);        //(-y,x)
+			ScreenDrawPix(x + x1, -y + y1, reverse);        //(x,-y)
+			ScreenDrawPix(-x + x1, -y + y1, reverse);       //(-x,-y)
+			ScreenDrawPix(y + x1, -x + y1, reverse);        //(y,-y)
+			ScreenDrawPix(-y + x1, -x + y1, reverse);       //(-y,-x)
 		} else {
 			d0 = d0 + 2 * x + 3;
 			x += 1;
 			y = y;
-			ScreenDrawDot(x + x1, (y + y1), degree, rever);         //(x,y)
-			ScreenDrawDot(-x + x1, (y + y1), degree, rever);        //(-x,y)
-			ScreenDrawDot(y + x1, (x + y1), degree, rever);         //(y,x)
-			ScreenDrawDot(-y + x1, (x + y1), degree, rever);        //(-y,x)
-			ScreenDrawDot(x + x1, (-y + y1), degree, rever);        //(x,-y)
-			ScreenDrawDot(-x + x1, (-y + y1), degree, rever);       //(-x,-y)
-			ScreenDrawDot(y + x1, (-x + y1), degree, rever);        //(y,-y)
-			ScreenDrawDot(-y + x1, (-x + y1), degree, rever);       //(-y,-x)
+			ScreenDrawPix(x + x1, (y + y1), reverse);         //(x,y)
+			ScreenDrawPix(-x + x1, (y + y1), reverse);        //(-x,y)
+			ScreenDrawPix(y + x1, (x + y1), reverse);         //(y,x)
+			ScreenDrawPix(-y + x1, (x + y1), reverse);        //(-y,x)
+			ScreenDrawPix(x + x1, (-y + y1), reverse);        //(x,-y)
+			ScreenDrawPix(-x + x1, (-y + y1), reverse);       //(-x,-y)
+			ScreenDrawPix(y + x1, (-x + y1), reverse);        //(y,-y)
+			ScreenDrawPix(-y + x1, (-x + y1), reverse);       //(-y,-x)
 		}
 	}
 }
-void ScreenDrawSquare(int32_t x1, int32_t y1, int32_t x2, uint32_t y2, uint32_t fill, uint32_t degree, enum DisRever rever)
+void ScreenDrawSquare(int32_t x1, int32_t y1, int32_t x2, int32_t y2, enum GraphFill fill, uint32_t degree, enum DisReverse reverse)
 {
-	uint32_t fillcnt;
-	if(1 == fill)
+	uint32_t Cnt, xCnt;
+	if(Fill == fill)
 	{
-		ScreenDrawLine(x1, y1, x1, y2, degree, rever);
-		ScreenDrawLine(x1, y1, x2, y1, degree, rever);
-		ScreenDrawLine(x1, y2, x2, y2, degree, rever);
-		ScreenDrawLine(x2, y1, x2, y2, degree, rever);
-		for(fillcnt = 0; fillcnt < y2-y1; fillcnt++)
+		for(Cnt = 0; Cnt <= ((y2-y1)>=0?(y2-y1):(y1-y2)); Cnt++)
 		{
-			ScreenDrawLine(x1, y1+fillcnt, x2, y1+fillcnt, degree, rever);
+			for(xCnt = 0; xCnt <= ((x2-x1)>=0?(x2-x1):(x1-x2)); xCnt++)
+			{
+				ScreenDrawPix(x1+xCnt, y1+Cnt, reverse);
+			}
 		}
-	}else if(0 == fill)
+	}else if(NoFill == fill)
 	{
-		ScreenDrawLine(x1, y1, x1, y2, degree, rever);
-		ScreenDrawLine(x1, y1, x2, y1, degree, rever);
-		ScreenDrawLine(x1, y2, x2, y2, degree, rever);
-		ScreenDrawLine(x2, y1, x2, y2, degree, rever);
+		for(Cnt = 0; Cnt <= ((y2-y1)>=0?(y2-y1):(y1-y2)); Cnt++)
+		{
+			ScreenDrawPix(x1, y1+Cnt, reverse);
+			ScreenDrawPix(x2, y1+Cnt, reverse);
+		}
+		for(Cnt = 1; Cnt <= ((x2-x1)>=0?(x2-x1):(x1-x2))-1; Cnt++)
+		{
+			ScreenDrawPix(x1+Cnt, y1, reverse);
+			ScreenDrawPix(x1+Cnt, y2, reverse);
+		}
 	}
 }
-void ScreenDrawSquareLangth(int32_t x1, int32_t y1, int32_t length, uint32_t width, uint32_t fill, uint32_t degree, enum DisRever rever)
+void ScreenDrawSquareLangth(int32_t x1, int32_t y1, int32_t length, uint32_t width, enum GraphFill fill, uint32_t degree, enum DisReverse reverse)
 {
-	ScreenDrawSquare(x1, y1, x1+length, y1+width, fill, degree, rever);
+	ScreenDrawSquare(x1, y1, x1+length-1, y1+width-1, fill, degree, reverse);
 }
