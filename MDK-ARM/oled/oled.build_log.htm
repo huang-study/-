@@ -3,72 +3,55 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: ¦ÌVision V5.26.2.0
-Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Dan Microsoft, Microsoft, LIC=LJWPC-7U8TE-XCAJ0-BNDB2-W0ZQB-LQNEX
+IDE-Version: ¦ÌVision V5.14.2
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Cortex-M3, Microsoft, LIC=76FVE-5QJ99-DKSBN-YTLQC-I7FGZ-PVRW0
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.26.2.0
+Toolchain:       MDK-ARM Standard  Version: 5.31.0.0
 Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 6 (build 750)
 Assembler:       Armasm.exe V5.06 update 6 (build 750)
 Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
 Library Manager: ArmAr.exe V5.06 update 6 (build 750)
 Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
-CPU DLL:         SARMCM3.DLL V5.26.2.0
-Dialog DLL:      DCM.DLL V1.17.2.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
-Dialog DLL:      TCM.DLL V1.36.1.0
+CPU DLL:         SARMCM3.DLL V5.31.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
-C:\Users\Dan\Desktop\Gravity-meter-spring-ball\MDK-ARM\oled.uvprojx
-Project File Date:  07/28/2020
+C:\Users\Administrator\Desktop\Gravity-meter-spring-ball\MDK-ARM\oled.uvprojx
+Project File Date:  08/08/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'oled'
-compiling screen.c...
-..\Core\screen\screen.c(379): error:  #20: identifier "F8X16" is undefined
-  			OLED_WR_Byte(F8X16[c*16+i],OLED_DATA);
-..\Core\screen\screen.c(382): error:  #20: identifier "F8X16" is undefined
-  			OLED_WR_Byte(F8X16[c*16+i+8],OLED_DATA);
-..\Core\screen\screen.c(387): error:  #20: identifier "F6x8" is undefined
-  				OLED_WR_Byte(F6x8[c][i],OLED_DATA);
-..\Core\screen\screen.c(397): warning:  #223-D: function "oled_pow" declared implicitly
-  		temp=(num/oled_pow(10,len-t-1))%10;
-..\Core\screen\screen.c(426): error:  #20: identifier "Hzk" is undefined
-  				OLED_WR_Byte(Hzk[2*no][t],OLED_DATA);
-..\Core\screen\screen.c(432): error:  #20: identifier "Hzk" is undefined
-  				OLED_WR_Byte(Hzk[2*no+1][t],OLED_DATA);
-..\Core\screen\screen.c(435): warning:  #1-D: last line of file ends without a newline
-  }
-..\Core\screen\screen.c: 2 warnings, 5 errors
 compiling main.c...
-"oled\oled.axf" - 5 Error(s), 2 Warning(s).
+linking...
+Program Size: Code=13374 RO-data=738 RW-data=1160 ZI-data=9280  
+FromELF: creating hex file...
+"oled\oled.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.5.1.pack
-                ARM.CMSIS.5.5.1
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM::CMSIS:CORE:5.4.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.2.0
-
-Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.1.0.pack
-                Keil.STM32F1xx_DFP.2.1.0
-                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+   * Component: CORE Version: 5.4.0
 
 <h2>Collection of Component include folders:</h2>
-  .\RTE\_oled
-  D:\Keil_v5\ARM\PACK\ARM\CMSIS\5.5.1\CMSIS\Core\Include
-  D:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0\Device\Include
+  C:\Users\Administrator\Desktop\Gravity-meter-spring-ball\MDK-ARM\RTE
+  D:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  D:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.2.0
-Target not created.
-Build Time Elapsed:  00:00:07
+   * Component: ARM::CMSIS:CORE:5.4.0
+      Include file:  CMSIS\Core\Include\tz_context.h
+      Source file:   CMSIS\Core\Template\ARMv8-M\main_s.c
+      Source file:   CMSIS\Core\Template\ARMv8-M\tz_context.c
 </pre>
 </body>
 </html>

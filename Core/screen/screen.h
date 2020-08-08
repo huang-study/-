@@ -10,20 +10,20 @@
 #include "stdint.h"
 
 #define _SCREEN_PIXEL_X 128 // 屏幕水平像素数，移植需修改
-#define _SCREEN_PIXEL_Y 64 // 屏幕垂直像素数，移植需修改
+#define _SCREEN_PIXEL_Y 64	// 屏幕垂直像素数，移植需修改
 
 enum ScreenPixStatus
 {
-	PixERR=0,
+	PixERR = 0,
 	PixON,
 	PixOFF
 };
 
 enum DisReverse
 {
-	ScreenNoReverse=0, // 不反显（显示为点亮，否则为不点亮）
-	ScreenReverse, // 反显
-	ScreenAutoReverse // 自动反显，只能在基于drow pix的函数，不能越级使用，否则会与图像自身反显
+	ScreenNoReverse = 0, // 不反显（显示为点亮，否则为不点亮）
+	ScreenReverse,		 // 反显
+	ScreenAutoReverse	 // 自动反显，只能在基于drow pix的函数，不能越级使用，否则会与图像自身反显
 };
 enum GraphFill
 {
