@@ -24,6 +24,7 @@
 "oled\oled.o"
 "oled\screen.o"
 "oled\graphics_lib.o"
+"oled\timing_switch.o"
 --library_type=microlib --strict --scatter "oled\oled.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

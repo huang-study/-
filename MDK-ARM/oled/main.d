@@ -38,3 +38,4 @@ oled\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 oled\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 oled\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 oled\main.o: ..\Core\screen\screen.h
+oled\main.o: ..\Core\TimingSwitch\timing_switch.h

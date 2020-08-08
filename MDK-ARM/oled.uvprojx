@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc; ../Drivers/STM32F1xx_HAL_Driver/Inc; ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy; ../Drivers/CMSIS/Device/ST/STM32F1xx/Include; ../Drivers/CMSIS/Include; ..\Core\oled; ..\Core\GraphicsLib; ..\Core\ADXL345; ..\Core\screen</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\Core\oled;..\Core\GraphicsLib;..\Core\ADXL345;..\Core\screen;..\Core\TimingSwitch</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -571,6 +571,16 @@
               <FileName>ADXL345.H</FileName>
               <FileType>5</FileType>
               <FilePath>..\Core\ADXL345\ADXL345.H</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>TimSwitch</GroupName>
+          <Files>
+            <File>
+              <FileName>timing_switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\TimingSwitch\timing_switch.c</FilePath>
             </File>
           </Files>
         </Group>

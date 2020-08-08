@@ -34,6 +34,7 @@
 #include "string.h"
 #include "math.h"
 #include "screen.h"
+#include "timing_switch.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,7 +86,7 @@ int main(void)
   extern union BitDomain_64 VideoMem[128];
   uint32_t cnt;
   int32_t ball_x = 63, ball_y = 31, ball_r = 3, ball_degree = 4;
-  uint32_t Tick, x_axle;
+  uint32_t x_axle;
   uint8_t DspMode;
   /* USER CODE END 1 */
 
@@ -128,7 +129,8 @@ int main(void)
 
   ScreenFill(0);
   RefreshScreen();
-  Tick = HAL_GetTick() + 100;
+  HAL_TIM_Base_Start_IT(&htim4);
+  TimingSwitchInit(10000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -138,30 +140,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if (HAL_GetTick() == Tick)
+    SwitchTimingStart(1, 100000);
+    if (SwitchON == SwitchGetOut(1))
     {
-      if (0 != (keyState & 0x01))
-      {
-        keyState &= ~(0x01 << 0);
-        DspMode = 0;
-      }
-      else if (0 != (keyState & 0x02))
-      {
-        keyState &= ~(0x01 << 1);
-        DspMode = 1;
-        x_axle = 0;
-      }
-      else if (0 != (keyState & 0x04))
-      {
-        keyState &= ~(0x01 << 2);
-        DspMode = 2;
-      }
-      if (0 == DspMode)
-      {
-        ScreenFill(0);
-        RefreshScreen();
-      }
-      Tick = HAL_GetTick() + 100;
+      SwitchTimingStop(1);
 
       keyState |= (GPIO_PIN_RESET == HAL_GPIO_ReadPin(KEY0_GPIO_Port, KEY0_Pin) ? (0x01 << 0) : 0x00);
 
@@ -170,6 +152,44 @@ int main(void)
       keyState |= (GPIO_PIN_RESET == HAL_GPIO_ReadPin(KEY2_GPIO_Port, KEY2_Pin) ? (0x01 << 2) : 0x00);
 
       keyState |= (GPIO_PIN_RESET == HAL_GPIO_ReadPin(KEY3_GPIO_Port, KEY3_Pin) ? (0x01 << 3) : 0x00);
+    }
+    if (0 != (keyState & 0x01))
+    {
+      keyState &= ~(0x01 << 0);
+      if (DspMode != 0)
+      {
+        ScreenFill(0);
+        DspMode = 0;
+      }
+    }
+    else if (0 != (keyState & 0x02))
+    {
+      keyState &= ~(0x01 << 1);
+      if (DspMode != 1)
+      {
+        ScreenFill(0);
+        DspMode = 1;
+        x_axle = 0;
+      }
+    }
+    else if (0 != (keyState & 0x04))
+    {
+      keyState &= ~(0x01 << 2);
+      if (DspMode != 2)
+      {
+        ScreenFill(0);
+        DspMode = 2;
+      }
+    }
+    if (0 == DspMode)
+    {
+      ScreenFill(0);
+      RefreshScreen();
+    }
+    SwitchTimingStart(2, 100000);
+    if (SwitchON == SwitchGetOut(2))
+    {
+      SwitchTimingStop(2);
 
       if (1 == DspMode)
       {
